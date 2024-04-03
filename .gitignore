@@ -1,0 +1,10 @@
+/node_modules/
+/test-results/
+/test-examples/
+/playwright-report/
+/playwright/.cache/
+*.env
+/_bkp/
+/test-results/
+/playwright-report/
+/playwright/.cache/
