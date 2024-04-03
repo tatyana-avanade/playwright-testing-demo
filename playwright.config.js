@@ -21,25 +21,32 @@ module.exports = defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+
+  reporter: [ 
+    ['html', { open: 'never' }],
+    ['junit', {outputFile: 'results.xml'}]
+  ],// 'never', change to 'always' to launch report automatically after execution
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+
   use: {
+    /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
+    actionTimeout: 60 * 1000,
+    navigationTimeout: 30 * 1000,
     /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://127.0.0.1:3000',
-
+    // baseURL: 'http://localhost:3000',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: "on", //change to 'on' to always capture
+    trace: 'on',
+    screenshot: 'only-on-failure',
     video: {
-      size: { width: 1900, height: 940 },
-      mode: "on",
+      mode: 'on'
     },
-    screenshot: "only-on-failure",
-    headless: false, // change to true for headles executon and for pipeline execution
-    //viewport: { width: 1900, height: 940 },
-    ignoreHTTPSErrors: true,
-    launchOptions: { slowMo: 800 },
+    headless: true,
+    viewport: { width: 1900, height: 940 },
+    launchOptions: {
+        slowMo: 500,
+    },
   },
-
+  
   /* Configure projects for major browsers */
   projects: [
     {
@@ -47,15 +54,15 @@ module.exports = defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
 
     /* Test against mobile viewports. */
     // {
