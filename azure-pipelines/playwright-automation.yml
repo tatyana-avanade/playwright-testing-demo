@@ -20,12 +20,12 @@ stages:
           BASE_URL: ''
 
 
-  - stage: uat
-    displayName: 'Run Automation Test - UAT'
-    dependsOn: []
-    condition: eq(variables['Build.Reason'], 'Manual')
-    jobs:
-      - template: playwright_template.yml
-        parameters:
-          TEST_USER_PASSWORD: ''
-          BASE_URL: ''
+  # - stage: uat
+  #   displayName: 'Run Automation Test - UAT'
+  #   dependsOn: []
+  #   condition: eq(variables['Build.Reason'], 'Manual')
+  #   jobs:
+  #     - template: playwright_template.yml
+  #       parameters:
+  #         TEST_USER_PASSWORD: ''
+  #         BASE_URL: ''
